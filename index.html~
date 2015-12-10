@@ -5,8 +5,9 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
+    <h1>Hello, world!</h1>
     <ul id="messages"></ul>
-    <ul id="userList"></ul>
+    <div id="userList"></div>
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>

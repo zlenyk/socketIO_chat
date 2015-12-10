@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-
+var userList = [];
 app.use(express.static('static'));
 
 app.get('/', function(req, res){
@@ -11,9 +11,16 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
     socket.on('disconnect',function(){
+        var index = userList.indexOf(socket.username);
+        if(index > -1){
+            userList.splice(index,1);
+        }
+        io.emit('user list', userList);
     });
     socket.on('adduser',function(username){
         socket.username = username;
+        userList.push(username);
+        io.emit('user list', userList);
     });
     socket.on('chat message', function(msg){
         io.emit('chat message',socket.username + ": " + msg);
