@@ -4,6 +4,17 @@
             $('#m').val('');
             return false;
         });
+        window.addEventListener('input',function(e){
+            socket.emit('writing','');
+        });
+        var timeout = null;
+        socket.on('writing',function(msg){
+            $('#writing').text(msg);
+            clearTimeout(timeout);
+            timeout = setTimeout(function(){
+                $('#writing').text('');
+            },500);
+        });
         socket.on('connect', function(){
             var username = null;
             while(username == null){

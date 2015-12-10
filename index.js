@@ -25,8 +25,11 @@ io.on('connection', function(socket){
     socket.on('chat message', function(msg){
         io.emit('chat message',socket.username + ": " + msg);
     });
+    socket.on('writing', function(msg){
+        io.emit('writing',socket.username + ' is writing...');
+    });
 });
 http.listen(3000, function(){
-  console.log('listening on *:3000');
+  console.log('change listening on *:3000');
 });
 
